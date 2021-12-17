@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6ceeb05556564cc8a36b70b77c92594d" Name="Diagram1">
+        <EntityTypeShape EntityType="LEGOModel.Details" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LEGOModel.Details_has_Materials" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LEGOModel.Materials" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LEGOModel.Products" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LEGOModel.Products_has_Details" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="LEGOModel.FK__Details_h__Detai__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="LEGOModel.FK__Products___Detai__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="LEGOModel.FK__Details_h__Mater__32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="LEGOModel.FK__Products___Produ__2E1BDC42" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

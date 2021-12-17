@@ -8,7 +8,10 @@
 <body>
     <hgroup>
         <h1>Ошибка.</h1>
-        <h2>При обработке запроса произошла ошибка.</h2>
+        <h2>@ViewBag.Error</h2>
     </hgroup>
+    <div class="form-actions no-color">
+        @Html.ActionLink("Back to List", "Index")
+    </div>
 </body>
 </html>

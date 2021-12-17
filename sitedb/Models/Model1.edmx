@@ -1,0 +1,514 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище LEGOModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Details">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Maker" Type="varchar" MaxLength="35" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Details_has_Materials">
+          <Key>
+            <PropertyRef Name="Details_ID" />
+            <PropertyRef Name="Materials_ID" />
+          </Key>
+          <Property Name="Details_ID" Type="int" Nullable="false" />
+          <Property Name="Materials_ID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Materials">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Price" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Maker" Type="varchar" MaxLength="35" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products_has_Details">
+          <Key>
+            <PropertyRef Name="Products_ID" />
+            <PropertyRef Name="Details_ID" />
+          </Key>
+          <Property Name="Products_ID" Type="int" Nullable="false" />
+          <Property Name="Details_ID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Details_h__Detai__31EC6D26">
+          <End Role="Details" Type="Self.Details" Multiplicity="1" />
+          <End Role="Details_has_Materials" Type="Self.Details_has_Materials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Details">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Details_has_Materials">
+              <PropertyRef Name="Details_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Details_h__Mater__32E0915F">
+          <End Role="Materials" Type="Self.Materials" Multiplicity="1" />
+          <End Role="Details_has_Materials" Type="Self.Details_has_Materials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materials">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Details_has_Materials">
+              <PropertyRef Name="Materials_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Products___Detai__2F10007B">
+          <End Role="Details" Type="Self.Details" Multiplicity="1" />
+          <End Role="Products_has_Details" Type="Self.Products_has_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Details">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Products_has_Details">
+              <PropertyRef Name="Details_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Products___Produ__2E1BDC42">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Products_has_Details" Type="Self.Products_has_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Products_has_Details">
+              <PropertyRef Name="Products_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="addDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Title" Type="varchar" Mode="In" />
+          <Parameter Name="Maker" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="addDetailsMaterials" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Details_ID" Type="int" Mode="In" />
+          <Parameter Name="Materials_ID" Type="int" Mode="In" />
+          <Parameter Name="Quantity" Type="int" Mode="In" />
+        </Function>
+        <Function Name="addMaterials" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Title" Type="varchar" Mode="In" />
+          <Parameter Name="Price" Type="int" Mode="In" />
+        </Function>
+        <Function Name="addProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Title" Type="varchar" Mode="In" />
+          <Parameter Name="Maker" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="addProductsDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Products_ID" Type="int" Mode="In" />
+          <Parameter Name="Details_ID" Type="int" Mode="In" />
+          <Parameter Name="Quantity" Type="int" Mode="In" />
+        </Function>
+        <Function Name="delDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="delDetailsMaterials" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idDet" Type="int" Mode="In" />
+          <Parameter Name="idMat" Type="int" Mode="In" />
+        </Function>
+        <Function Name="delMaterials" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="delProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="delProductsDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idProd" Type="int" Mode="In" />
+          <Parameter Name="idDet" Type="int" Mode="In" />
+        </Function>
+        <Function Name="FIRST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="prodID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Procedure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="prodID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SECOND" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="matTitle" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="updDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="title" Type="varchar" Mode="In" />
+          <Parameter Name="maker" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="updDetailsMaterials" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idDet" Type="int" Mode="In" />
+          <Parameter Name="idMat" Type="int" Mode="In" />
+          <Parameter Name="Quantity" Type="int" Mode="In" />
+        </Function>
+        <Function Name="updMaterials" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="title" Type="varchar" Mode="In" />
+          <Parameter Name="price" Type="int" Mode="In" />
+        </Function>
+        <Function Name="updProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="title" Type="varchar" Mode="In" />
+          <Parameter Name="maker" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="updProductsDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idProd" Type="int" Mode="In" />
+          <Parameter Name="idDet" Type="int" Mode="In" />
+          <Parameter Name="Quantity" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="Хранилище LEGOModelContainer">
+          <EntitySet Name="Details" EntityType="Self.Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Details_has_Materials" EntityType="Self.Details_has_Materials" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Materials" EntityType="Self.Materials" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products_has_Details" EntityType="Self.Products_has_Details" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Details_h__Detai__31EC6D26" Association="Self.FK__Details_h__Detai__31EC6D26">
+            <End Role="Details" EntitySet="Details" />
+            <End Role="Details_has_Materials" EntitySet="Details_has_Materials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Details_h__Mater__32E0915F" Association="Self.FK__Details_h__Mater__32E0915F">
+            <End Role="Materials" EntitySet="Materials" />
+            <End Role="Details_has_Materials" EntitySet="Details_has_Materials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Products___Detai__2F10007B" Association="Self.FK__Products___Detai__2F10007B">
+            <End Role="Details" EntitySet="Details" />
+            <End Role="Products_has_Details" EntitySet="Products_has_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Products___Produ__2E1BDC42" Association="Self.FK__Products___Produ__2E1BDC42">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Products_has_Details" EntitySet="Products_has_Details" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LEGOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Details">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Maker" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Details_has_Materials" Relationship="Self.FK__Details_h__Detai__31EC6D26" FromRole="Details" ToRole="Details_has_Materials" />
+          <NavigationProperty Name="Products_has_Details" Relationship="Self.FK__Products___Detai__2F10007B" FromRole="Details" ToRole="Products_has_Details" />
+        </EntityType>
+        <EntityType Name="Details_has_Materials">
+          <Key>
+            <PropertyRef Name="Details_ID" />
+            <PropertyRef Name="Materials_ID" />
+          </Key>
+          <Property Name="Details_ID" Type="Int32" Nullable="false" />
+          <Property Name="Materials_ID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Details" Relationship="Self.FK__Details_h__Detai__31EC6D26" FromRole="Details_has_Materials" ToRole="Details" />
+          <NavigationProperty Name="Materials" Relationship="Self.FK__Details_h__Mater__32E0915F" FromRole="Details_has_Materials" ToRole="Materials" />
+        </EntityType>
+        <EntityType Name="Materials">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Details_has_Materials" Relationship="Self.FK__Details_h__Mater__32E0915F" FromRole="Materials" ToRole="Details_has_Materials" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Maker" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Products_has_Details" Relationship="Self.FK__Products___Produ__2E1BDC42" FromRole="Products" ToRole="Products_has_Details" />
+        </EntityType>
+        <EntityType Name="Products_has_Details">
+          <Key>
+            <PropertyRef Name="Products_ID" />
+            <PropertyRef Name="Details_ID" />
+          </Key>
+          <Property Name="Products_ID" Type="Int32" Nullable="false" />
+          <Property Name="Details_ID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Details" Relationship="Self.FK__Products___Detai__2F10007B" FromRole="Products_has_Details" ToRole="Details" />
+          <NavigationProperty Name="Products" Relationship="Self.FK__Products___Produ__2E1BDC42" FromRole="Products_has_Details" ToRole="Products" />
+        </EntityType>
+        <Association Name="FK__Details_h__Detai__31EC6D26">
+          <End Role="Details" Type="Self.Details" Multiplicity="1" />
+          <End Role="Details_has_Materials" Type="Self.Details_has_Materials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Details">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Details_has_Materials">
+              <PropertyRef Name="Details_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Products___Detai__2F10007B">
+          <End Role="Details" Type="Self.Details" Multiplicity="1" />
+          <End Role="Products_has_Details" Type="Self.Products_has_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Details">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Products_has_Details">
+              <PropertyRef Name="Details_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Details_h__Mater__32E0915F">
+          <End Role="Materials" Type="Self.Materials" Multiplicity="1" />
+          <End Role="Details_has_Materials" Type="Self.Details_has_Materials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materials">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Details_has_Materials">
+              <PropertyRef Name="Materials_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Products___Produ__2E1BDC42">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Products_has_Details" Type="Self.Products_has_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Products_has_Details">
+              <PropertyRef Name="Products_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LEGOEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Details" EntityType="Self.Details" />
+          <EntitySet Name="Details_has_Materials" EntityType="Self.Details_has_Materials" />
+          <EntitySet Name="Materials" EntityType="Self.Materials" />
+          <EntitySet Name="Products" EntityType="Self.Products" />
+          <EntitySet Name="Products_has_Details" EntityType="Self.Products_has_Details" />
+          <AssociationSet Name="FK__Details_h__Detai__31EC6D26" Association="Self.FK__Details_h__Detai__31EC6D26">
+            <End Role="Details" EntitySet="Details" />
+            <End Role="Details_has_Materials" EntitySet="Details_has_Materials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Products___Detai__2F10007B" Association="Self.FK__Products___Detai__2F10007B">
+            <End Role="Details" EntitySet="Details" />
+            <End Role="Products_has_Details" EntitySet="Products_has_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Details_h__Mater__32E0915F" Association="Self.FK__Details_h__Mater__32E0915F">
+            <End Role="Materials" EntitySet="Materials" />
+            <End Role="Details_has_Materials" EntitySet="Details_has_Materials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Products___Produ__2E1BDC42" Association="Self.FK__Products___Produ__2E1BDC42">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Products_has_Details" EntitySet="Products_has_Details" />
+          </AssociationSet>
+          <FunctionImport Name="addDetails">
+            <Parameter Name="Title" Mode="In" Type="String" />
+            <Parameter Name="Maker" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="addDetailsMaterials">
+            <Parameter Name="Details_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Materials_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Quantity" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="addMaterials">
+            <Parameter Name="Title" Mode="In" Type="String" />
+            <Parameter Name="Price" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="addProducts">
+            <Parameter Name="Title" Mode="In" Type="String" />
+            <Parameter Name="Maker" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="addProductsDetails">
+            <Parameter Name="Products_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Details_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Quantity" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="delDetails">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="delDetailsMaterials">
+            <Parameter Name="idDet" Mode="In" Type="Int32" />
+            <Parameter Name="idMat" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="delMaterials">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="delProducts">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="delProductsDetails">
+            <Parameter Name="idProd" Mode="In" Type="Int32" />
+            <Parameter Name="idDet" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="FIRST" ReturnType="Collection(LEGOModel.FIRST_Result)">
+            <Parameter Name="prodID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Procedure" ReturnType="Collection(String)">
+            <Parameter Name="prodID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SECOND" ReturnType="Collection(LEGOModel.SECOND_Result)">
+            <Parameter Name="matTitle" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updDetails">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="maker" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updDetailsMaterials">
+            <Parameter Name="idDet" Mode="In" Type="Int32" />
+            <Parameter Name="idMat" Mode="In" Type="Int32" />
+            <Parameter Name="Quantity" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="updMaterials">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="price" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="updProducts">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="maker" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updProductsDetails">
+            <Parameter Name="idProd" Mode="In" Type="Int32" />
+            <Parameter Name="idDet" Mode="In" Type="Int32" />
+            <Parameter Name="Quantity" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="FIRST_Result">
+          <Property Type="String" Name="Product" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Detail" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Material" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="Total" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SECOND_Result">
+          <Property Type="String" Name="Product" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Detail" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Material" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="Total" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище LEGOModelContainer" CdmEntityContainer="LEGOEntities">
+          <EntitySetMapping Name="Details">
+            <EntityTypeMapping TypeName="LEGOModel.Details">
+              <MappingFragment StoreEntitySet="Details">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Maker" ColumnName="Maker" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Details_has_Materials">
+            <EntityTypeMapping TypeName="LEGOModel.Details_has_Materials">
+              <MappingFragment StoreEntitySet="Details_has_Materials">
+                <ScalarProperty Name="Details_ID" ColumnName="Details_ID" />
+                <ScalarProperty Name="Materials_ID" ColumnName="Materials_ID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Materials">
+            <EntityTypeMapping TypeName="LEGOModel.Materials">
+              <MappingFragment StoreEntitySet="Materials">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="LEGOModel.Products">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Maker" ColumnName="Maker" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products_has_Details">
+            <EntityTypeMapping TypeName="LEGOModel.Products_has_Details">
+              <MappingFragment StoreEntitySet="Products_has_Details">
+                <ScalarProperty Name="Products_ID" ColumnName="Products_ID" />
+                <ScalarProperty Name="Details_ID" ColumnName="Details_ID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="addDetails" FunctionName="Хранилище LEGOModel.addDetails" />
+          <FunctionImportMapping FunctionImportName="addDetailsMaterials" FunctionName="Хранилище LEGOModel.addDetailsMaterials" />
+          <FunctionImportMapping FunctionImportName="addMaterials" FunctionName="Хранилище LEGOModel.addMaterials" />
+          <FunctionImportMapping FunctionImportName="addProducts" FunctionName="Хранилище LEGOModel.addProducts" />
+          <FunctionImportMapping FunctionImportName="addProductsDetails" FunctionName="Хранилище LEGOModel.addProductsDetails" />
+          <FunctionImportMapping FunctionImportName="delDetails" FunctionName="Хранилище LEGOModel.delDetails" />
+          <FunctionImportMapping FunctionImportName="delDetailsMaterials" FunctionName="Хранилище LEGOModel.delDetailsMaterials" />
+          <FunctionImportMapping FunctionImportName="delMaterials" FunctionName="Хранилище LEGOModel.delMaterials" />
+          <FunctionImportMapping FunctionImportName="delProducts" FunctionName="Хранилище LEGOModel.delProducts" />
+          <FunctionImportMapping FunctionImportName="delProductsDetails" FunctionName="Хранилище LEGOModel.delProductsDetails" />
+          <FunctionImportMapping FunctionImportName="FIRST" FunctionName="Хранилище LEGOModel.FIRST">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LEGOModel.FIRST_Result">
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="Material" ColumnName="Material" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Procedure" FunctionName="Хранилище LEGOModel.Procedure" />
+          <FunctionImportMapping FunctionImportName="SECOND" FunctionName="Хранилище LEGOModel.SECOND">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LEGOModel.SECOND_Result">
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="Material" ColumnName="Material" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="updDetails" FunctionName="Хранилище LEGOModel.updDetails" />
+          <FunctionImportMapping FunctionImportName="updDetailsMaterials" FunctionName="Хранилище LEGOModel.updDetailsMaterials" />
+          <FunctionImportMapping FunctionImportName="updMaterials" FunctionName="Хранилище LEGOModel.updMaterials" />
+          <FunctionImportMapping FunctionImportName="updProducts" FunctionName="Хранилище LEGOModel.updProducts" />
+          <FunctionImportMapping FunctionImportName="updProductsDetails" FunctionName="Хранилище LEGOModel.updProductsDetails" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

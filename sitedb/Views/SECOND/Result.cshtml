@@ -1,0 +1,41 @@
+﻿@model IEnumerable<sitedb.Models.SECOND_Result>
+@{
+    ViewBag.Title = "Список";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2 class="mt-4">Второй запрос</h2>
+<table class="table table-striped mt-3">
+    <tr>
+        <th>
+            Продукт
+        </th>
+        <th>
+            Деталь
+        </th>
+        <th>
+            Материал
+        </th>
+        <th>
+            Итого
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+     {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Detail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Material)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+        </tr>
+     }
+
+</table>
