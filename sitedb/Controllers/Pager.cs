@@ -44,8 +44,9 @@ namespace sitedb.Models
                 }
             }
 
-            TotalItems = totalItems;
+            
             CurrentPage = currentPage;
+            TotalItems = totalItems;
             PageSize = pageSize;
             TotalPages = totalPages;
             StartPage = startPage;

@@ -14,6 +14,7 @@ namespace sitedb.Models
         private LEGOEntities db = new LEGOEntities();
 
         // GET: Detail
+
         public ActionResult Index(int pg = 1)
         {
             var details = db.Details.ToList();
